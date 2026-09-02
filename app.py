@@ -11,7 +11,7 @@ while True:
     |       2. Visualizar gastos          |
     |       3. Calcular total de gastos   |
     |       4. Eliminar gasto             |
-    |       4. Salir                      |
+    |       5. Salir                      |
     +=====================================+
     """)
 
