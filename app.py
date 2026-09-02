@@ -10,6 +10,7 @@ while True:
     |       1. Registrar gasto            |
     |       2. Visualizar gastos          |
     |       3. Calcular total de gastos   |
+    |       4. Eliminar gasto             |
     |       4. Salir                      |
     +=====================================+
     """)
@@ -48,8 +49,27 @@ while True:
 
         print(f"\nTotal de gastos: ${total:.2f}")
         input("\nPresiona ENTER para continuar")
-        
+
     elif opcion == "4":
+        if len(gastos) == 0:
+            print("\nNo hay gastos registrados.")
+        else:
+            print("\n--- GASTOS REGISTRADOS ---")
+    
+            for i, gasto in enumerate(gastos, start=1):
+                print(f"{i}. {gasto['descripcion']} - ${gasto['cantidad']:.2f}")
+    
+            numero = int(input("¿Qué gasto deseas eliminar?: "))
+    
+            if numero >= 1 and numero <= len(gastos):
+                gastos.pop(numero - 1)
+                print("Gasto eliminado correctamente.")
+            else:
+                print("Número de gasto no válido.")
+    
+            print("\nPresiona ENTER para continuar")
+        
+    elif opcion == "5":
         print("Saliendo de la aplicación...")
         break
 
