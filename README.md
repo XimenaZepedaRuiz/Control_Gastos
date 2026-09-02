@@ -15,7 +15,6 @@ Desarrollar una aplicación sencilla para registrar y administrar gastos persona
 - Flask: framework utilizado para crear la aplicación web.
 - HTML: estructura de las páginas.
 - CSS: diseño y presentación de la interfaz.
-- Git: sistema de control de versiones.
 - GitHub: plataforma utilizada para alojar el repositorio y gestionar el proyecto.
 
 ## Metodología
