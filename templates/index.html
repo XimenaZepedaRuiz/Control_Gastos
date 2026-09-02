@@ -46,7 +46,7 @@
                         <tr>
                             <td>{{ loop.index }}</td>
                             <td>{{ gasto.descripcion }}</td>
-                            <td>Q{{ "%.2f"|format(gasto.monto) }}</td>
+                            <td>${{ "%.2f"|format(gasto.monto) }}</td>
                             <td>
                                 <a class="eliminar" href="/eliminar/{{ loop.index0 }}"
                                    onclick="return confirm('¿Deseas eliminar este gasto?')">
@@ -63,7 +63,7 @@
         </section>
 
         <section class="total">
-            <h2>Total de gastos: Q{{ "%.2f"|format(total) }}</h2>
+            <h2>Total de gastos: ${{ "%.2f"|format(total) }}</h2>
         </section>
 
         <a class="salir" href="/salir"
