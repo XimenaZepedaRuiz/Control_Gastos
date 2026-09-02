@@ -1,77 +1,42 @@
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
 gastos = []
 
-print("Sistema de Control de Gastos Personales")
 
-while True:
-    print("""
-    +=====================================+
-    |                MENÚ                 |
-    +=====================================+
-    |       1. Registrar gasto            |
-    |       2. Visualizar gastos          |
-    |       3. Calcular total de gastos   |
-    |       4. Eliminar gasto             |
-    |       5. Salir                      |
-    +=====================================+
-    """)
+@app.route("/")
+def inicio():
+    total = sum(gasto["monto"] for gasto in gastos)
+    return render_template("index.html", gastos=gastos, total=total)
 
-    opcion = input("Selecciona una opción: ")
 
-    if opcion == "1":
-        descripcion = input("Ingresa la descripción del gasto: ")
-        cantidad = float(input("Ingresa la cantidad del gasto: "))
+@app.route("/registrar", methods=["POST"])
+def registrar_gasto():
+    descripcion = request.form["descripcion"]
+    monto = float(request.form["monto"])
 
-        gasto = {
-            "descripcion": descripcion,
-            "cantidad": cantidad
-        }
+    gastos.append({
+        "descripcion": descripcion,
+        "monto": monto
+    })
 
-        gastos.append(gasto)
+    return redirect(url_for("inicio"))
 
-        print("Gasto registrado correctamente.")
-        input("\nPresiona ENTER para continuar")
 
-    elif opcion == "2":
-        print("\n--- GASTOS REGISTRADOS ---")
+@app.route("/eliminar/<int:indice>")
+def eliminar_gasto(indice):
+    if 0 <= indice < len(gastos):
+        gastos.pop(indice)
 
-        if len(gastos) == 0:
-            print("No hay gastos registrados.")
-        else:
-            for i, gasto in enumerate(gastos, start=1):
-                print(f"{i}. {gasto['descripcion']} - ${gasto['cantidad']:.2f}")
-        input("\nPresiona ENTER para continuar")
+    return redirect(url_for("inicio"))
 
-    elif opcion == "3":
-        total = 0
-    
-        for gasto in gastos:
-            total += gasto["cantidad"]
 
-        print(f"\nTotal de gastos: ${total:.2f}")
-        input("\nPresiona ENTER para continuar")
+@app.route("/salir")
+def salir():
+    gastos.clear()
+    return render_template("index.html", gastos=[], total=0, mensaje="La sesión fue cerrada y los gastos fueron eliminados.")
 
-    elif opcion == "4":
-        if len(gastos) == 0:
-            print("\nNo hay gastos registrados.")
-        else:
-            print("\n--- GASTOS REGISTRADOS ---")
-    
-            for i, gasto in enumerate(gastos, start=1):
-                print(f"{i}. {gasto['descripcion']} - ${gasto['cantidad']:.2f}")
-    
-            numero = int(input("¿Qué gasto deseas eliminar?: "))
-    
-            if numero >= 1 and numero <= len(gastos):
-                gastos.pop(numero - 1)
-                print("Gasto eliminado correctamente.")
-            else:
-                print("Número de gasto no válido.")
-    
-            print("\nPresiona ENTER para continuar")
-        
-    elif opcion == "5":
-        print("Saliendo de la aplicación...")
-        break
 
-    else:
-        print("Opción no válida.")
+if __name__ == "__main__":
+    app.run(debug=True)
