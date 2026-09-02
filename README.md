@@ -42,3 +42,13 @@ El tablero se organizará en tres estados:
 
 - Como usuario, quiero salir de la aplicación de forma segura cuando termine de utilizarla.
 
+## Para ejecutar el proyecto
+
+1. Instalar Flask:
+   pip install flask
+
+2. Ejecutar:
+   python app.py
+
+3. Abrir en el navegador:
+   http://127.0.0.1:5000
