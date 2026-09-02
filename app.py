@@ -9,7 +9,8 @@ while True:
     +=====================================+
     |       1. Registrar gasto            |
     |       2. Visualizar gastos          |
-    |       3. Salir                      |
+    |       3. Calcular total de gastos   |
+    |       4. Salir                      |
     +=====================================+
     """)
 
@@ -38,7 +39,17 @@ while True:
             for i, gasto in enumerate(gastos, start=1):
                 print(f"{i}. {gasto['descripcion']} - ${gasto['cantidad']:.2f}")
         input("\nPresiona ENTER para continuar")
+
     elif opcion == "3":
+        total = 0
+    
+        for gasto in gastos:
+            total += gasto["cantidad"]
+
+        print(f"\nTotal de gastos: ${total:.2f}")
+        input("\nPresiona ENTER para continuar")
+        
+    elif opcion == "4":
         print("Saliendo de la aplicación...")
         break
 
