@@ -2,15 +2,45 @@ gastos = []
 
 print("Sistema de Control de Gastos Personales")
 
-descripcion = input("Ingresa la descripción del gasto: ")
-cantidad = float(input("Ingresa la cantidad del gasto: "))
+while True:
+    print("""
+    +=====================================+
+    |                MENÚ                 |
+    +=====================================+
+    |       1. Registrar gasto            |
+    |       2. Visualizar gastos          |
+    |       3. Salir                      |
+    +=====================================+
+    """)
 
-gasto = {
-    "descripcion": descripcion,
-    "cantidad": cantidad
-}
+    opcion = input("Selecciona una opción: ")
 
-gastos.append(gasto)
+    if opcion == "1":
+        descripcion = input("Ingresa la descripción del gasto: ")
+        cantidad = float(input("Ingresa la cantidad del gasto: "))
 
-print("Gasto registrado correctamente.")
-print(f"Gasto: {descripcion} - ${cantidad:.2f}")
+        gasto = {
+            "descripcion": descripcion,
+            "cantidad": cantidad
+        }
+
+        gastos.append(gasto)
+
+        print("Gasto registrado correctamente.")
+        input("\nPresiona ENTER para continuar")
+
+    elif opcion == "2":
+        print("\n--- GASTOS REGISTRADOS ---")
+
+        if len(gastos) == 0:
+            print("No hay gastos registrados.")
+        else:
+            for i, gasto in enumerate(gastos, start=1):
+                print(f"{i}. {gasto['descripcion']} - ${gasto['cantidad']:.2f}")
+        input("\nPresiona ENTER para continuar")
+    elif opcion == "3":
+        print("Saliendo de la aplicación...")
+        break
+
+    else:
+        print("Opción no válida.")
