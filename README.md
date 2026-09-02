@@ -50,5 +50,4 @@ El tablero se organizará en tres estados:
 2. Ejecutar:
    python app.py
 
-3. Abrir en el navegador:
-   http://127.0.0.1:5000
+3. Abrir en el navegador: (el link que te proporcione en la terminal)
