@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Gastos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="contenedor">
+        <h1>Control de Gastos Personales</h1>
+
+        {% if mensaje %}
+            <p class="mensaje">{{ mensaje }}</p>
+        {% endif %}
+
+        <section class="tarjeta">
+            <h2>Registrar gasto</h2>
+
+            <form action="/registrar" method="POST">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" required>
+
+                <label for="monto">Monto:</label>
+                <input type="number" id="monto" name="monto" min="0.01" step="0.01" required>
+
+                <button type="submit">Registrar gasto</button>
+            </form>
+        </section>
+
+        <section class="tarjeta">
+            <h2>Gastos registrados</h2>
+
+            {% if gastos %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N.º</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for gasto in gastos %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ gasto.descripcion }}</td>
+                            <td>Q{{ "%.2f"|format(gasto.monto) }}</td>
+                            <td>
+                                <a class="eliminar" href="/eliminar/{{ loop.index0 }}"
+                                   onclick="return confirm('¿Deseas eliminar este gasto?')">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Aún no hay gastos registrados.</p>
+            {% endif %}
+        </section>
+
+        <section class="total">
+            <h2>Total de gastos: Q{{ "%.2f"|format(total) }}</h2>
+        </section>
+
+        <a class="salir" href="/salir"
+           onclick="return confirm('Al salir se eliminarán los gastos de esta sesión. ¿Continuar?')">
+            Salir / cerrar sesión
+        </a>
+    </main>
+</body>
+</html>
